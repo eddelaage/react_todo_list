@@ -21,7 +21,7 @@ class App extends React.Component {
             <div>
                 <h1>Application TODO</h1>
                 <FormAddTodo formTitle={'Ajouter une todo'} addTodo={this.addTodo} />
-                <TodosListe titleListe={'Liste des todos'} />
+                <TodosListe titleListe={'Liste des todos'} todos={this.state.todos}/>
             </div>
         )
     }
