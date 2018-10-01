@@ -9,8 +9,7 @@ class FormAddTodo extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        this.setState(this.state.value)
-        console.log(this.state)
+        this.props.addTodo(this.state)
     }
 
     render() {
