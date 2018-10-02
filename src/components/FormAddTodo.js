@@ -4,13 +4,15 @@ class FormAddTodo extends React.Component {
 
     state = {
         title: '',
-        description: ''
+        description: '',
+        isInEditMode: false,
+        id : null
     }
 
     handleSubmit = (event) => {
-        event.preventDefault()
-        this.props.addTodo(this.state)
-        this.setState({ title: '', description: '' })
+        event.preventDefault();
+        this.props.addTodo(Object.assign({}, this.state, {id : Date.now()} ));
+        this.setState({ title: '', description: ''});
     }
 
     render() {

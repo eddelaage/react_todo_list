@@ -2,44 +2,63 @@ import React from 'react'
 
 class Todo extends React.Component{
 
-    state = {
-        title: '',
-        description: '',
-        isInEditMode: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: props.data.title,
+            description: props.data.description,
+            isInEditMode: props.data.isInEditMode,
+            id:props.data.id
+        }
     }
 
     toggleIsInEditMode = () => {
-        this.setState({ isInEditMode: !this.state.isInEditMode })
+        this.setState({isInEditMode : !this.state.isInEditMode}); ;
+        this.props.updateTodo( this.state);
     }
 
-    editTitleTodo = (event) => {
-        // event.preventDefault()
-        this.props.editTitleTodo(this.state)
+    handleTitleChange = (e) => {
+        this.setState({title: e.target.value});
+    }
+    handleDescChange = (e) => {
+        this.setState({description: e.target.value});
+    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        // console.log(event);
+        this.setState({isInEditMode : false});
+        this.props.updateTodo( this.state);
     }
 
     render() {
-        console.log('Les props qui déscendent de app :', this.props.data)
+        // console.log('Les props qui déscendent de app :', this.props.data)
         return(
             <div>
                 <button className="btn btn-danger btn-xs edit">x</button>
-                <button className="btn btn-warning btn-xs edit" onClick={ event => this.toggleIsInEditMode() }>Modifier</button>
+                <button className="btn btn-warning btn-xs edit" onClick={ (event) => this.toggleIsInEditMode() }>Modifier</button>
 
                 {
                     this.state.isInEditMode ?
                     <span>
-                        <input 
-                            type="text" 
-                            value={this.props.data.title}
-                            onChange={ (event) => this.editTitleTodo(this.setState({ title: event.target.value })) }
-                        />
-                        <input 
-                            type="text" 
-                            value={this.props.data.description}
-                            onChange={ event => this.editTitleTodo(event, this.props.data) }
-                        />
+                        <form onSubmit={this.handleSubmit}>
+                            <input 
+                                type="text" 
+                                name='input_title'
+                                value={this.state.title}
+                                onChange={this.handleTitleChange}
+                            />
+                            <input 
+                                type="text" 
+                                name='input_desc'
+                                placeholder={this.state.description}
+                                value={this.state.description}
+                                onChange={this.handleDescChange}
+                            />
+                            <button type="submit">Valider</button>
+                        </form>
                     </span>
                     :
-                    <span>{this.props.data.title} {this.props.data.description}</span>
+                    <span>{this.state.title} {this.state.description}</span>
 
                 }
             </div>
