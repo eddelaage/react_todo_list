@@ -14,6 +14,7 @@ class Todo extends React.Component{
 
     toggleIsInEditMode = () => {
         this.setState({isInEditMode : !this.state.isInEditMode}); ;
+        // console.log(this.state)
         this.props.updateTodo( this.state);
     }
 
@@ -30,11 +31,18 @@ class Todo extends React.Component{
         this.props.updateTodo( this.state);
     }
 
+    hendleDelete = (event) => {
+        this.setState({title: '', description: '', id: '', isInEditMode: false})
+        // this.setState({title: '', description: '', id: '', isInEditMode: false}):
+        // console.log('Le state de todo.js', this.state)
+        this.props.deleteTodo(this.state)
+    }
+
     render() {
         // console.log('Les props qui déscendent de app :', this.props.data)
         return(
             <div>
-                <button className="btn btn-danger btn-xs edit">x</button>
+                <button className="btn btn-danger btn-xs edit" onClick={ (event) => this.hendleDelete() }>x</button>
                 <button className="btn btn-warning btn-xs edit" onClick={ (event) => this.toggleIsInEditMode() }>Modifier</button>
 
                 {
