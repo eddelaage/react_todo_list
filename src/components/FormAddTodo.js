@@ -16,7 +16,6 @@ class FormAddTodo extends React.Component {
     }
 
     render() {
-        console.log(this.props.addTodo)
         return(
             <div>
                 <h2>{this.props.formTitle}</h2>
