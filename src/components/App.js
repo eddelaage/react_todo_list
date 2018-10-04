@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import FormAddTodo from './FormAddTodo'
 import TodosListe from './TodosListe'
@@ -34,22 +35,37 @@ class App extends React.Component {
         });
     }
 
-    addTodo = (todo) => {
-        const oldTodos = this.state.todos
-        const newTodos = [...oldTodos, todo]
-        this.setState({ todos: newTodos })   
-    }
-
     render() {
         console.log(this.state)
         return(
             <div>
                 <h1>Application TODO</h1>
-                <FormAddTodo formTitle={'Ajouter une todo'} addTodo={this.addTodo} />
-                <TodosListe titleListe={'Liste des todos'} todos={this.state.todos}  updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
+                <FormAddTodo formTitle={'Ajouter une todo'} addTodo={this.props.addTodo} />
+                <TodosListe titleListe={'Liste des todos'} todos={this.props.todos}  updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
             </div>
         )
     }
 }
 
-export default App
+const addTodoActionCreator = (todo) => {
+    return {
+        type: 'ADD_TODO',
+        payload: todo
+    }
+}
+
+const mapStateToProps = (state) => {
+    return{
+        todos: state.todos
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        addTodo: (todo) => {
+            dispatch(addTodoActionCreator(todo))
+        }
+    }
+}
+// export default App
+export default connect(mapStateToProps, mapDispatchToProps)(App)
