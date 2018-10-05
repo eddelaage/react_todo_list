@@ -8,24 +8,20 @@ import App from './components/App'
 const addTodoReducer = (state = [], action) => {
     switch(action.type) {
         case('ADD_TODO'):
-            // console.log('ADD_TOTO')
-            // console.log('Action', action)
             action.payload.id = Date.now()
             const newTodos = [...state, action.payload]
             return newTodos
         case('UPDATE_TODO'):
-            console.log('action', action)
             const todoId = action.payload.id
-            // console.log('actionPayloadID', action.payload.id)
-            // console.log('todoID', todoId)
             return state.map(todo => {
-                console.log('todo.id', todo.id)
-                console.log('todoID', todoId)
                 if (todo.id !== todoId) {
                      return todo
                 }
                 return action.payload 
-            })            
+            })
+        case('DELETE_TODO'):
+            const deleteTodoId = action.payload.data.id
+            return state.filter(todo => deleteTodoId !== todo.id);
         default:
             return state
     }

@@ -5,27 +5,21 @@ class Todo extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            // title: props.data.title,
-            // description: props.data.description,
             isInEditMode: false,
-            // id:props.data.id
         }
     }
 
     toggleIsInEditMode = (todo) => {
-        this.setState({isInEditMode : !this.state.isInEditMode}); ;
-        // this.props.updateTodo( this.state);
+        this.setState({isInEditMode : !this.state.isInEditMode});
     }
 
     handleTitleChange = (event, todo) => {
         event.preventDefault();
-        // this.setState({title: e.target.value});
         todo.title = event.target.value
         this.props.updateTodo(todo)
     }
     handleDescChange = (event, todo) => {
         event.preventDefault();
-        // this.setState({description: e.target.value});
         todo.description = event.target.value
         this.props.updateTodo(todo)
     }
@@ -35,17 +29,16 @@ class Todo extends React.Component{
         this.props.updateTodo(todo);
     }
 
-    // hendleDelete = (event) => {
-    //     this.setState({title: '', description: '', id: '', isInEditMode: false})
-    //     this.props.deleteTodo(this.state)
-    // }
+    hendleDelete = (event, todo) => {
+        this.setState({title: '', description: '', id: '', isInEditMode: false})
+        this.props.deleteTodo(todo)
+    }
 
     render() {
         const todo = this.props
-        // console.log('Les props qui déscendent de app :', this.props.data)
         return(
             <div hey={todo}>
-                {/* <button className="btn btn-danger btn-xs edit" onClick={ (event) => this.hendleDelete() }>x</button> */}
+                <button className="btn btn-danger btn-xs edit" onClick={ (event) => this.hendleDelete(event, todo) }>x</button>
                 <button className="btn btn-warning btn-xs edit" onClick={ (event) => this.toggleIsInEditMode() }>Modifier</button>
 
                 {
@@ -65,7 +58,6 @@ class Todo extends React.Component{
                                 value={this.props.data.description}
                                 onChange={event => this.handleDescChange(event, this.props.data)}
                             />
-                            <button type="submit" onClick={ (event) => this.toggleIsInEditMode() }>Valider</button>
                         </form>
                     </span>
                     :

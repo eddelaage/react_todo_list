@@ -2,8 +2,6 @@ import React from 'react'
 
 class FormAddTodo extends React.Component {
 
-
-
     handleSubmit = (event) => {
         event.preventDefault();
         // this.props.addTodo(Object.assign({}, this.state, {id : Date.now()} ));
