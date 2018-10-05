@@ -6,9 +6,6 @@ import TodosListe from './TodosListe'
 
 class App extends React.Component {
 
-    state = {
-        todos: []
-    }
 
     deleteTodo = (deltodo, event) => {
         this.state.todos.filter((todo) =>{
@@ -24,24 +21,13 @@ class App extends React.Component {
         })
     }
 
-    updateTodo = (updtodo) => {
-        this.state.todos.filter((todo) => {
-            if (todo.id === updtodo.id) {
-                todo.title = updtodo.title;
-                todo.description = updtodo.description;
-                todo.isInEditMode = updtodo.isInEditMode;
-            }
-            return todo;
-        });
-    }
-
     render() {
         // console.log(this.state)
         return(
             <div>
                 <h1>Application TODO</h1>
                 <FormAddTodo formTitle={'Ajouter une todo'} addTodo={this.props.addTodo} />
-                <TodosListe titleListe={'Liste des todos'} todos={this.props.todos}  updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
+                <TodosListe titleListe={'Liste des todos'} todos={this.props.todos}  updateTodo={this.props.updateTodo} deleteTodo={this.deleteTodo} />
             </div>
         )
     }
@@ -50,6 +36,13 @@ class App extends React.Component {
 const addTodoActionCreator = (todo) => {
     return {
         type: 'ADD_TODO',
+        payload: todo
+    }
+}
+
+const updateTodoActionCreator = (todo) => {
+    return {
+        type: 'UPDATE_TODO',
         payload: todo
     }
 }
@@ -64,6 +57,9 @@ const mapDispatchToProps = (dispatch) => {
     return{
         addTodo: (todo) => {
             dispatch(addTodoActionCreator(todo))
+        },
+        updateTodo: (todo) => {
+            dispatch(updateTodoActionCreator(todo))
         }
     }
 }

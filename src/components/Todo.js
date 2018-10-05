@@ -5,40 +5,47 @@ class Todo extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            title: props.data.title,
-            description: props.data.description,
-            isInEditMode: props.data.isInEditMode,
-            id:props.data.id
+            // title: props.data.title,
+            // description: props.data.description,
+            isInEditMode: false,
+            // id:props.data.id
         }
     }
 
-    toggleIsInEditMode = () => {
+    toggleIsInEditMode = (todo) => {
         this.setState({isInEditMode : !this.state.isInEditMode}); ;
-        this.props.updateTodo( this.state);
+        // this.props.updateTodo( this.state);
     }
 
-    handleTitleChange = (e) => {
-        this.setState({title: e.target.value});
+    handleTitleChange = (event, todo) => {
+        event.preventDefault();
+        // this.setState({title: e.target.value});
+        todo.title = event.target.value
+        this.props.updateTodo(todo)
     }
-    handleDescChange = (e) => {
-        this.setState({description: e.target.value});
+    handleDescChange = (event, todo) => {
+        event.preventDefault();
+        // this.setState({description: e.target.value});
+        todo.description = event.target.value
+        this.props.updateTodo(todo)
     }
-    handleSubmit = (event) => {
+    handleSubmit = (event, todo) => {
         event.preventDefault();
         this.setState({isInEditMode : false});
-        this.props.updateTodo( this.state);
+        this.props.updateTodo(todo);
     }
 
-    hendleDelete = (event) => {
-        this.setState({title: '', description: '', id: '', isInEditMode: false})
-        this.props.deleteTodo(this.state)
-    }
+    // hendleDelete = (event) => {
+    //     this.setState({title: '', description: '', id: '', isInEditMode: false})
+    //     this.props.deleteTodo(this.state)
+    // }
 
     render() {
+        const todo = this.props
         // console.log('Les props qui déscendent de app :', this.props.data)
         return(
-            <div>
-                <button className="btn btn-danger btn-xs edit" onClick={ (event) => this.hendleDelete() }>x</button>
+            <div hey={todo}>
+                {/* <button className="btn btn-danger btn-xs edit" onClick={ (event) => this.hendleDelete() }>x</button> */}
                 <button className="btn btn-warning btn-xs edit" onClick={ (event) => this.toggleIsInEditMode() }>Modifier</button>
 
                 {
@@ -48,21 +55,21 @@ class Todo extends React.Component{
                             <input 
                                 type="text" 
                                 name='input_title'
-                                value={this.state.title}
-                                onChange={this.handleTitleChange}
+                                value={this.props.data.title}
+                                onChange={event => this.handleTitleChange(event, this.props.data)}
                             />
                             <input 
                                 type="text" 
                                 name='input_desc'
-                                placeholder={this.state.description}
-                                value={this.state.description}
-                                onChange={this.handleDescChange}
+                                // placeholder={this.state.description}
+                                value={this.props.data.description}
+                                onChange={event => this.handleDescChange(event, this.props.data)}
                             />
-                            <button type="submit">Valider</button>
+                            <button type="submit" onClick={ (event) => this.toggleIsInEditMode() }>Valider</button>
                         </form>
                     </span>
                     :
-                    <span>{this.state.title} {this.state.description}</span>
+                    <span>{this.props.data.title} {this.props.data.description}</span>
 
                 }
             </div>

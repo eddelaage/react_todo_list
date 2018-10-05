@@ -13,6 +13,19 @@ const addTodoReducer = (state = [], action) => {
             action.payload.id = Date.now()
             const newTodos = [...state, action.payload]
             return newTodos
+        case('UPDATE_TODO'):
+            console.log('action', action)
+            const todoId = action.payload.id
+            // console.log('actionPayloadID', action.payload.id)
+            // console.log('todoID', todoId)
+            return state.map(todo => {
+                console.log('todo.id', todo.id)
+                console.log('todoID', todoId)
+                if (todo.id !== todoId) {
+                     return todo
+                }
+                return action.payload 
+            })            
         default:
             return state
     }
