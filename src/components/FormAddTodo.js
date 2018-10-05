@@ -14,7 +14,7 @@ class FormAddTodo extends React.Component {
         this.props.addTodo(Object.assign({}, this.state, {id : Date.now()} ));
         this.setState({ title: '', description: ''});
     }
-
+ 
     render() {
         return(
             <div>

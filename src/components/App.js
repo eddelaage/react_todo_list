@@ -15,7 +15,7 @@ class App extends React.Component {
             if (todo.id === deltodo.id) {
                 // get index of object with id:37
                 const removeIndex = this.state.todos.map( (item) => { return item.id; }).indexOf(deltodo.id);
-                console.log(removeIndex)
+                // console.log(removeIndex)
                 // remove object
                 this.state.todos.splice(removeIndex, 1);
                 this.setState( Object.assign({}, this.state ))
@@ -36,7 +36,7 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         return(
             <div>
                 <h1>Application TODO</h1>

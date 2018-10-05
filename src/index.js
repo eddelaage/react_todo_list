@@ -8,8 +8,8 @@ import App from './components/App'
 const addTodoReducer = (state = [], action) => {
     switch(action.type) {
         case('ADD_TODO'):
-            console.log('ADD_TOTO')
-            console.log('Action', action)
+            // console.log('ADD_TOTO')
+            // console.log('Action', action)
             action.payload.id = Date.now()
             const newTodos = [...state, action.payload]
             return newTodos
@@ -21,8 +21,6 @@ const addTodoReducer = (state = [], action) => {
 const store = createStore(combineReducers({
     todos: addTodoReducer
 }), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-
-window.store= store
 
 ReactDom.render(
     <Provider store={store}>
